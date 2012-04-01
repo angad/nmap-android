@@ -10,8 +10,9 @@ wget http://nmap.org/dist/nmap-5.51.tar.bz2
 tar -xjf nmap-5.51.tar.bz2
 rm nmap-5.51.tar.bz2
 cd nmap-5.51
-ac_cv_linux_vers=3.0.16 RANLIB='arm-none-linux-gnueabi-ranlib' LD='arm-none-linux-gnueabi-ld' AR='arm-none-linux-gnueabi-ar' CC='arm-none-linux-gnueabi-gcc' CXX='arm-none-linux-gnueabi-g++' ./configure --host=arm-linux-gnueabi --with-pcap=linux --with-libpcap=included --with-liblua=included --without-zenmap --without-openssl --enable-static
-make
+ac_cv_func_getpgrp=yes ac_cv_func_setpgrp=yes ac_cv_linux_vers=3.0.16 RANLIB='arm-none-linux-gnueabi-ranlib' LD='arm-none-linux-gnueabi-ld' AR='arm-none-linux-gnueabi-ar' CC='arm-none-linux-gnueabi-gcc' CXX='arm-none-linux-gnueabi-g++' ./configure --host=arm-linux --without-nmapfe --with-pcap=linux --with-libpcap=included --with-liblua=included
+# sed -i 's/STATIC = /STATIC = -static/g' Makefile
+make static
 cd ..
 mkdir bin
 cp nmap-5.51/nmap bin/
